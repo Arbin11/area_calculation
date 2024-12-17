@@ -1,0 +1,226 @@
+@prefix : <http://www.semanticweb.org/srghr/ontologies/2024/11/3/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.semanticweb.org/srghr/ontologies/2024/11/3/> .
+
+<http://www.semanticweb.org/srghr/ontologies/2024/11/arbin-aic> rdf:type owl:Ontology .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.semanticweb.org/srghr/ontologies/2024/11/3/has_area_formula
+:has_area_formula rdf:type owl:ObjectProperty ;
+                  rdfs:domain :Shape ;
+                  rdfs:range :Circle ,
+                             :Square ,
+                             :Triangle ;
+                  rdfs:comment "shape has a formula for area" .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.semanticweb.org/srghr/ontologies/2024/11/3/base
+:base rdf:type owl:DatatypeProperty ;
+      rdfs:domain :Triangle ;
+      rdfs:range xsd:float .
+
+
+###  http://www.semanticweb.org/srghr/ontologies/2024/11/3/height
+:height rdf:type owl:DatatypeProperty ;
+        rdfs:domain :Triangle ;
+        rdfs:range xsd:float .
+
+
+###  http://www.semanticweb.org/srghr/ontologies/2024/11/3/radius
+:radius rdf:type owl:DatatypeProperty ;
+        rdfs:domain :Circle ;
+        rdfs:range xsd:decimal ,
+                   xsd:float ,
+                   xsd:int ,
+                   xsd:integer .
+
+
+###  http://www.semanticweb.org/srghr/ontologies/2024/11/3/side_length
+:side_length rdf:type owl:DatatypeProperty ;
+             rdfs:domain :Square ;
+             rdfs:range xsd:float .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.semanticweb.org/srghr/ontologies/2024/11/3/Circle
+:Circle rdf:type owl:Class ;
+        rdfs:subClassOf :Shape ;
+        rdfs:comment "represents a Circle" .
+
+
+###  http://www.semanticweb.org/srghr/ontologies/2024/11/3/Shape
+:Shape rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/srghr/ontologies/2024/11/3/Square
+:Square rdf:type owl:Class ;
+        rdfs:subClassOf :Shape ;
+        rdfs:comment "represents a Square" .
+
+
+###  http://www.semanticweb.org/srghr/ontologies/2024/11/3/Triangle
+:Triangle rdf:type owl:Class ;
+          rdfs:subClassOf :Shape .
+
+
+###  http://www.semanticweb.org/srghr/ontologies/2024/11/arbin-aic#base
+:base rdf:type owl:Class ;
+      rdfs:subClassOf :Triangle .
+
+
+###  http://www.semanticweb.org/srghr/ontologies/2024/11/arbin-aic#height
+:height rdf:type owl:Class ;
+        rdfs:subClassOf :Triangle .
+
+
+###  http://www.semanticweb.org/srghr/ontologies/2024/11/arbin-aic#radius
+:radius rdf:type owl:Class ;
+        rdfs:subClassOf :Circle .
+
+
+###  http://www.semanticweb.org/srghr/ontologies/2024/11/arbin-aic#side_length
+:side_length rdf:type owl:Class ;
+             rdfs:subClassOf :Square .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.semanticweb.org/srghr/ontologies/2024/11/arbin-aic#CircleArea
+:CircleArea rdf:type owl:NamedIndividual ,
+                     :radius ;
+            :radius 5 ;
+            rdfs:comment "pi * radius * radius" .
+
+
+###  http://www.semanticweb.org/srghr/ontologies/2024/11/arbin-aic#MyCircle
+:MyCircle rdf:type owl:NamedIndividual ,
+                   :Circle ;
+          :has_area_formula :CircleArea ;
+          :radius 3 ;
+          rdfs:comment "Instance for Circle" .
+
+
+###  http://www.semanticweb.org/srghr/ontologies/2024/11/arbin-aic#MySquare
+:MySquare rdf:type owl:NamedIndividual ,
+                   :Square ;
+          :has_area_formula :SquareArea ;
+          :side_length 5 .
+
+
+###  http://www.semanticweb.org/srghr/ontologies/2024/11/arbin-aic#MyTriangle
+:MyTriangle rdf:type owl:NamedIndividual ,
+                     :Triangle ;
+            :has_area_formula :TriangleArea ;
+            :base 12 ;
+            :height 5 ;
+            rdfs:comment "represents different Geometric Shapes" .
+
+
+###  http://www.semanticweb.org/srghr/ontologies/2024/11/arbin-aic#SquareArea
+:SquareArea rdf:type owl:NamedIndividual ,
+                     :side_length ;
+            rdfs:comment "side_length * side_length" .
+
+
+###  http://www.semanticweb.org/srghr/ontologies/2024/11/arbin-aic#TriangleArea
+:TriangleArea rdf:type owl:NamedIndividual ,
+                       :base ,
+                       :height ;
+              :base 12 ;
+              :height 5 ;
+              rdfs:comment "0.5*base*height" .
+
+
+[ rdf:type :Shape ;
+  rdfs:comment "represents a Circle"
+] .
+
+[ rdf:type [ rdf:type owl:Restriction ;
+              owl:onProperty :base ;
+              owl:someValuesFrom xsd:decimal
+            ] ,
+            [ rdf:type owl:Restriction ;
+              owl:onProperty :base ;
+              owl:someValuesFrom xsd:float
+            ] ,
+            [ rdf:type owl:Restriction ;
+              owl:onProperty :base ;
+              owl:someValuesFrom xsd:int
+            ] ,
+            [ rdf:type owl:Restriction ;
+              owl:onProperty :base ;
+              owl:someValuesFrom xsd:integer
+            ] ,
+            [ rdf:type owl:Restriction ;
+              owl:onProperty :height ;
+              owl:someValuesFrom xsd:decimal
+            ] ,
+            [ rdf:type owl:Restriction ;
+              owl:onProperty :height ;
+              owl:someValuesFrom xsd:float
+            ] ,
+            [ rdf:type owl:Restriction ;
+              owl:onProperty :height ;
+              owl:someValuesFrom xsd:int
+            ] ,
+            [ rdf:type owl:Restriction ;
+              owl:onProperty :height ;
+              owl:someValuesFrom xsd:integer
+            ] ,
+            [ rdf:type owl:Restriction ;
+              owl:onProperty :radius ;
+              owl:someValuesFrom xsd:decimal
+            ] ,
+            [ rdf:type owl:Restriction ;
+              owl:onProperty :radius ;
+              owl:someValuesFrom xsd:float
+            ] ,
+            [ rdf:type owl:Restriction ;
+              owl:onProperty :radius ;
+              owl:someValuesFrom xsd:int
+            ] ,
+            [ rdf:type owl:Restriction ;
+              owl:onProperty :radius ;
+              owl:someValuesFrom xsd:integer
+            ] ,
+            [ rdf:type owl:Restriction ;
+              owl:onProperty :side_length ;
+              owl:someValuesFrom xsd:decimal
+            ] ,
+            [ rdf:type owl:Restriction ;
+              owl:onProperty :side_length ;
+              owl:someValuesFrom xsd:float
+            ] ,
+            [ rdf:type owl:Restriction ;
+              owl:onProperty :side_length ;
+              owl:someValuesFrom xsd:int
+            ] ,
+            [ rdf:type owl:Restriction ;
+              owl:onProperty :side_length ;
+              owl:someValuesFrom xsd:integer
+            ] ;
+   :has_area_formula :TriangleArea ;
+   :base "12"^^xsd:int ;
+   :height "5"^^xsd:int
+ ] .
+
+[ rdf:type :Shape
+ ] .
+
+###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
